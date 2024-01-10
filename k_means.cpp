@@ -27,8 +27,6 @@
 
 using namespace std;
 
-void euc_dist(int i, int j, int col_counter, double* euc_dist_arr[], double* centroid_arr[], string* data_arr[]);
-int checker(int cluster_1_arr[], int cluster_2_arr[], int row_counter);
 
 int main(int argc, char* argv[]){
     cout << setprecision(5);  //number of digits to print in output
@@ -132,7 +130,7 @@ int main(int argc, char* argv[]){
     list <int> AIC_list;
     int min_k{strtol(argv[2], NULL, 10)};
     int max_k{strtol(argv[3], NULL, 10)};
-    srand(time(NULL));
+
     for(int k = min_k; k < max_k+1; ++k){
         string outfile = string(argv[4]) + to_string(k);
         ofstream myfile (outfile);
@@ -165,7 +163,7 @@ int main(int argc, char* argv[]){
 
         for(int i = 0; i < k; ++i){
             for(int j = 0; j < row_counter; ++j){
-                euc_dist(i, j, col_counter, euc_dist_arr, centroid_arr, data_arr);
+                euc_dist(i, j, col_counter, euc_dist_arr, centroid_arr);
             }
             if(i < k-1){
                 double weight_max{0};
@@ -252,7 +250,7 @@ int main(int argc, char* argv[]){
                     }
                 }
             }
-            ++tracker; // how many times the clustering loop executes
+
 
             if(flag == "second"){
                 final = "1";
@@ -361,19 +359,8 @@ int main(int argc, char* argv[]){
         WCSS_list.push_back(AIC);
     }
 
-    // print table to stdout
-    cout << "k" << "\t" << "WCSS" << "\t" << "AIC" << "\n";
-    int pc{0};
-    int min_k2{strtol(argv[2], NULL, 10)};
-    for(auto v : WCSS_list){
-        if(pc % 2 == 0){
-            cout << min_k2 << "\t" << v << "\t";
-            ++min_k2;
-        } else {
-            cout << v << "\n";
-        }
-        ++pc;
-    }
+
+    
 
 }
 
