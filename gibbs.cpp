@@ -385,7 +385,7 @@ int main(int argc, char* argv[]){
           }
         }
                                                             //Generate random number between 0 and 1.
-        double rand_weight_num = ((double) rand() / (RAND_MAX));
+
         for(int h = 0; h < 2 * (max_seq_len - run_motif); ++h){
           if(score_to_line[h] > rand_weight_num){           //If element on number line (must range from 0 to 1) is greater than the random number.  Number line is weighted with more weight given to higher PSSM score.
             if(h < max_seq_len - run_motif){                //If position less seq len - motif length (no partial motif allowed; no overhang past known nucleotides)
@@ -449,7 +449,7 @@ int main(int argc, char* argv[]){
             }
           }
         }
-        goto skipping2;
+
       }
 
       if(adj_mot_len_flag == 1){                            //If motif length was adjusted.
@@ -466,7 +466,7 @@ int main(int argc, char* argv[]){
         if(avg1 > avg2){
           perm_motif = run_motif;                           //If current run with different motif length was higher score, set perm_motif length (previous) to current run.
         }
-        goto skipping2;
+
       }
 
       for(int j = 0; j < seq_count; ++j){
@@ -503,28 +503,9 @@ int main(int argc, char* argv[]){
       }
     }
 
-    ++seed_counter;
+
   }
 
-  double print_sum{0};
-  for(int j = 0; j < seq_count; ++j){
-    print_sum += score_storage_3[j];
-    for(int a = 0; a < print_motif; ++a){
-      if(motif_data_3[j][a] == 0){
-        cout << "A";
-      }else if(motif_data_3[j][a] == 1){
-        cout << "T";
-      }else if(motif_data_3[j][a] == 2){
-        cout << "G";
-      }else if(motif_data_3[j][a] == 3){
-        cout << "C";
-      }
-    }
-  cout << "\t" << pos_storage2[j] << "-" << pos_storage2[j]+print_motif;
-  cout << "\t" << seq_name_data[j] << "\n";
-  }
-  cout << "Sum: " << print_sum << "\n";
-  cout << "Motif length: " << print_motif << "\n";
 
 }
 
