@@ -1,5 +1,5 @@
 # uni_code
-A selection of some of the other code written while at Uni
+A selection of some of the other code written while at Uni. Note that some code has been changed or removed from some programs.
 
 * 2_delta_delta.r calculates the fold change from real-time PCR.
 * Hist_and_window_pub.r creates histograms based on read depth.
