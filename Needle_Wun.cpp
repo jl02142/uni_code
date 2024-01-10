@@ -10,7 +10,7 @@
 using namespace std;
 // Have to edit fasta files as follows to get program to work. Add a newline character after the sequence name and remove all newline characters from the sequence.
 /*
-cat $infile_1.fa | sed 's/^\(>.*\)/\1 HERE/' | tr -d '\n' | sed 's/HERE/\n/' | sed -e '$a\' > temp
+#cat $infile_1.fa | sed 's/^\(>.*\)/\1 HERE/' | tr -d '\n' | sed 's/HERE/\n/' | sed -e '$a\' > temp
 
 mv temp $infile_1.fa
 
@@ -208,71 +208,18 @@ int main(int argc, char* argv[]){
             --seq_length_checker;
             --seq_length_checker2;
             --seq_length_checker3;
-            t1 = t1 - 1;
-            t2 = t2 - 1;
         } else if(dir_matrix[t1][t2] == 2){
             output_matrix[0][seq_length_checker] = "-";
             output_matrix[1][seq_length_checker] = s2_data_arr[1][seq_length_checker3];
             --seq_length_checker;
             output_matrix[0][seq_length_checker] = s1_data_arr[1][seq_length_checker2];
             --seq_length_checker3;
-            t2 = t2 - 1;
         } else if(dir_matrix[t1][t2] == 3){
             output_matrix[0][seq_length_checker] =  s1_data_arr[1][seq_length_checker2];
             output_matrix[1][seq_length_checker] = "-";
             --seq_length_checker;
             output_matrix[1][seq_length_checker] = s2_data_arr[1][seq_length_checker3];
             --seq_length_checker2;
-            t1 = t1 - 1;
         }
     }
 
-    //Get sequence name for printing
-    string seq_name_1;
-    string seq_name_2;
-    if(temp_max_seq_len_1 > temp_max_seq_len_2){
-       seq_name_1 = s1_name_arr[0];
-       seq_name_2 = s2_name_arr[0];
-    } else {
-        seq_name_1 = s2_name_arr[0];
-        seq_name_2 = s1_name_arr[0];
-    }
-    //Print aligned sequences to outfile
-    string outfile = argv[5];  //Outfile name from argument
-    ofstream myfile (outfile);
-    myfile << seq_name_1 <<"\n";
-    for(int i = 0; i < max_seq_len + tracker; ++i){
-        myfile << output_matrix[0][i];
-    }
-    myfile << "\n";
-
-    myfile << seq_name_2 <<"\n";
-    for(int i = 0; i < max_seq_len + tracker; ++i){
-        myfile << output_matrix[1][i];
-    }
-    myfile << "\n";
-
-    cout << "Score " << score_matrix[max_seq_len][min_seq_len] << "\n";
-
-}
-
-//Function to return max number, returns the max number
-double max_num(double diag, double left, double top){
-    if(diag >= left && diag >= top){
-        return diag;
-    } else if(left >= diag && left >= top){
-        return left;
-    } else {
-        return top;
-    }
-}
-//Function to find max number, returns the direction as a number (1 = diag, 2 = left, 3 = top).
-int dir(double diag, double left, double top){
-    if(diag >= left && diag >= top){
-        return 1;
-    } else if(left >= diag && left >= top){
-        return 2;
-    } else {
-        return 3;
-    }
-}
