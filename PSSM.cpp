@@ -243,8 +243,6 @@ int main(int argc, char* argv[])
         freq_matrix_inverse[f][1] = freq_matrix[g][1] / background;
         freq_matrix_inverse[f][2] = freq_matrix[g][2] / background;
         freq_matrix_inverse[f][3] = freq_matrix[g][3] / background;
-        ++g;
-        --f;
     }
 
     cout << "PSSM matrix" << "\n";                                               //Print PSSM
@@ -285,60 +283,6 @@ int main(int argc, char* argv[])
     cout << "\n";
     int start = 0;
     int finish = max_seq_length;
-    while(finish < temp_char_counter){                              //Print query score and matching position
-        int m{0};
-        double x{0};
-        double x2{0};
-        while(m < max_seq_length){
-            string thing = sample_data[start+m];
-            if(thing == "A" || thing == "a"){
-                x  = x  + log2(freq_matrix[m][0] / Apercent);
-                x2 = x2 + log2(freq_matrix_inverse[m][1] / Tpercent);
-                //cout << "x " << x << "\n";
-                //cout << "x2 " << x2 << "\n";
-            } else if(thing == "T" || thing == "t"){
-                x  = x  + log2(freq_matrix[m][1] / Tpercent);
-                x2 = x2 + log2(freq_matrix_inverse[m][0] / Apercent);
-                //cout << "x " << x << "\n";
-                //cout << "x2 " << x2 << "\n";
-            } else if(thing == "G" || thing == "g"){
-                x  = x  + log2(freq_matrix[m][2] / Gpercent);
-                x2 = x2 + log2(freq_matrix_inverse[m][3] / Cpercent);
-                //cout << "x " << x << "\n";
-                //cout << "x2 " << x2 << "\n";
-            } else if(thing == "C" || thing == "c"){
-                x  = x  + log2(freq_matrix[m][3] / Cpercent);
-                x2 = x2 + log2(freq_matrix_inverse[m][2] / Gpercent);
-                //cout << "x " << x << "\n";
-                //cout << "x2 " << x2 << "\n";
-            }
-            ++m;
-        }
-    if(x > score){
-        cout << "Match start at " << start+1 << " Ending at " << finish << " Score " << x << " Sequence ";
-        printer(start, finish, sample_data);
-        cout << "\n";
-    }
-    if(x2 > score){
-        cout << "Match start at " << start+1 << " Ending at " << finish << " Score " << x2 << " Sequence ";
-        printer(start, finish, sample_data);
-        cout << "\n";
-    }
-    ++start;
-    ++finish;
-    }
-
-}
-
-void printer(int start, int finish, string sample_data[]){
-    for(int i = start; i < finish; ++i){
-        cout << sample_data[i];
-    }
-}
-
-void printer2(int i, int max_seq_length, string* motif_data[]){
-    for(int j = 0; j < max_seq_length; j++){
-        cout << motif_data[i][j];
-    }
+    
 }
 
