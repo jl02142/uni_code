@@ -11,4 +11,5 @@ A selection of some of the other code written while at Uni. Note that some code 
 * k_means.cpp is the k means clustering algorithm.
 * master_illumina.sh is a bash submission script for aligning paired Illumina short reads.
 * pssm.py is the Position-specific scoring matrix for motif fidning (earlier python version).
+* pyramid_cipher.cpp decodes a cipher message stored in a pyramid scheme
 * usatfinal.pl is a script for finding microsatellites. 
